@@ -284,8 +284,10 @@ topDeclElem lnks loc splice names html =
 -- Name must be documented, otherwise we wouldn't get here.
 links :: LinksInfo -> SrcSpan -> Bool -> Maybe Module -> DocName -> Html
 links ((_,_,sourceMap,lineMap), (_,_,maybe_wiki_url)) loc splice mdl' docName@(Documented n mdl) =
-  srcLink <+> wikiLink <+> (selfLink ! [theclass "selflink"] << "#")
-  where selfLink = linkedAnchor (nameAnchorId (nameOccName (getName docName)))
+  nbsp <+> srcLink <+> wikiLink <+> (selfLink ! [theclass "selflink"] << "#")
+  where nbsp = primHtml "&nbsp;"
+
+        selfLink = linkedAnchor (nameAnchorId (nameOccName (getName docName)))
 
         srcLink = let nameUrl = Map.lookup origPkg sourceMap
                       lineUrl = Map.lookup origPkg lineMap
