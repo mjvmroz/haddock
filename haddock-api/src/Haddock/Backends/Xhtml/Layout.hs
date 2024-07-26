@@ -277,7 +277,8 @@ declElem = paragraph ! [theclass "src"]
 -- it adds a source and wiki link at the right hand side of the box
 topDeclElem :: LinksInfo -> SrcSpan -> Bool -> [DocName] -> Html -> Html
 topDeclElem lnks loc splice names html =
-    declElem << (html <+> (links lnks loc splice Nothing $ head names))
+    let nbsp = primHtml "&nbsp;"
+      in declElem << (html <+> nbsp <+> (links lnks loc splice Nothing $ head names))
         -- FIXME: is it ok to simply take the first name?
 
 -- | Adds a source and wiki link at the right hand side of the box.
